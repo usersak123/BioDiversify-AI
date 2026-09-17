@@ -1,0 +1,166 @@
+INTERVENTION: Cover Crops
+
+Action:
+Introduce non-crop vegetation such as legumes or grasses between main crop cycles.
+
+Mechanism:
+Cover crops maintain vegetation cover, reduce erosion, contribute organic residues, improve soil structure and can provide habitat and resources for soil organisms and insects.
+
+Environmental metrics:
+- Soil organic carbon
+- Soil moisture
+- Soil erosion
+- Soil biological activity
+- Habitat diversity
+- Pollinator resources
+
+Multi-metric relationship:
+Increasing vegetation cover can protect soil from erosion and reduce direct soil exposure. Greater organic inputs can support soil biological activity, while additional vegetation can provide habitat resources.
+
+Time horizon:
+Short term: vegetation cover and erosion protection.
+Medium term: changes in soil biological activity and organic matter.
+Long term: potential improvement in soil health and habitat quality.
+
+Evidence source:
+FAO Global Soil Partnership resources and peer-reviewed research on soil organic matter and biodiversity.
+
+Important limitation:
+The magnitude of improvement depends on climate, species selected, management, soil type and duration.
+
+--------------------------------------------------
+
+INTERVENTION: Intercropping
+
+Action:
+Grow two or more compatible crop species together.
+
+Mechanism:
+Intercropping increases plant diversity and can create different vegetation structures and resource availability within agricultural land.
+
+Environmental metrics:
+- Crop diversity
+- Habitat diversity
+- Soil biological activity
+- Pollinator resources
+- Water-use efficiency
+
+Multi-metric relationship:
+Greater plant diversity can increase habitat complexity while interactions between crops can influence resource use and soil processes.
+
+Time horizon:
+Short to medium term.
+
+Evidence source:
+FAO biodiversity and sustainable agriculture resources; peer-reviewed research on crop diversification.
+
+Important limitation:
+Effects depend on crop combinations, climate, soil conditions and management.
+
+--------------------------------------------------
+
+INTERVENTION: Agroforestry
+
+Action:
+Integrate trees with crops or livestock.
+
+Mechanism:
+Trees can provide habitat, shade, root systems, litter inputs and structural diversity. They can also influence microclimate and water dynamics.
+
+Environmental metrics:
+- Habitat diversity
+- Soil organic carbon
+- Soil moisture
+- Temperature exposure
+- Species richness
+- Landscape connectivity
+
+Multi-metric relationship:
+Trees can modify microclimate and provide additional habitat while contributing organic matter to soil. This can be particularly relevant where high temperature and water stress occur.
+
+Time horizon:
+Medium to long term.
+
+Evidence source:
+FAO agroforestry resources and peer-reviewed agroecology research.
+
+Important limitation:
+Tree species selection, water availability, spacing and competition with crops must be considered.
+
+--------------------------------------------------
+
+INTERVENTION: Flowering Field Margins
+
+Action:
+Create strips of flowering plants around or within agricultural fields.
+
+Mechanism:
+Flowering vegetation can provide nectar, pollen and refuge for pollinators and other beneficial organisms.
+
+Environmental metrics:
+- Pollinator abundance
+- Habitat diversity
+- Vegetation diversity
+- Species richness
+
+Multi-metric relationship:
+Increasing habitat diversity can provide resources for insects while field margins can also reduce the ecological isolation of agricultural habitats.
+
+Time horizon:
+Short to medium term.
+
+Evidence source:
+FAO biodiversity resources and peer-reviewed research on ecological intensification.
+
+--------------------------------------------------
+
+INTERVENTION: Habitat Connectivity
+
+Action:
+Connect isolated habitat patches using hedgerows, vegetation corridors or restored field margins.
+
+Mechanism:
+Connectivity can facilitate movement between habitat patches and reduce isolation of populations.
+
+Environmental metrics:
+- Habitat connectivity
+- Species movement
+- Habitat diversity
+- Species richness
+
+Multi-metric relationship:
+Land-use fragmentation can interact with climate stress because organisms may have fewer opportunities to move toward suitable conditions when habitats are isolated.
+
+Time horizon:
+Medium to long term.
+
+Evidence source:
+IPBES global biodiversity assessment and ecological research on habitat fragmentation.
+
+--------------------------------------------------
+
+INTERVENTION: Reduce Broad-Spectrum Pesticide Pressure
+
+Action:
+Reduce unnecessary broad-spectrum pesticide use and adopt integrated pest management where appropriate.
+
+Mechanism:
+Broad-spectrum pesticides can affect non-target organisms depending on chemical, dose, application and exposure.
+
+Environmental metrics:
+- Non-target organism pressure
+- Pollinator risk
+- Biodiversity
+- Pest regulation
+
+Multi-metric relationship:
+Reducing unnecessary pesticide pressure can complement habitat restoration because organisms need both suitable habitat and reduced chemical pressure.
+
+Time horizon:
+Short to medium term.
+
+Evidence source:
+FAO integrated pest management resources and peer-reviewed research.
+
+Important limitation:
+Specific pesticide decisions require consideration of the crop, pest, chemical and local regulations.

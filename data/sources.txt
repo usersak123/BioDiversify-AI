@@ -1,0 +1,112 @@
+SCIENTIFIC SOURCES FOR BIODIVERSITY INTELLIGENCE
+
+SOURCE 1
+
+Organization:
+Food and Agriculture Organization of the United Nations (FAO)
+
+Topic:
+Soil health, soil organic carbon and sustainable soil management.
+
+Use for:
+- Soil organic carbon
+- Soil structure
+- Soil biological activity
+- Soil biodiversity
+- Soil moisture
+
+Source type:
+International scientific/technical organization.
+
+
+--------------------------------------------------
+
+SOURCE 2
+
+Organization:
+FAO Global Soil Partnership
+
+Topic:
+Global soil resources and soil health.
+
+Use for:
+- Soil organic carbon
+- Soil degradation
+- Soil management
+- Soil biodiversity
+
+Source type:
+International scientific/technical resource.
+
+
+--------------------------------------------------
+
+SOURCE 3
+
+Organization:
+Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services (IPBES)
+
+Report:
+Global Assessment Report on Biodiversity and Ecosystem Services
+
+Use for:
+- Biodiversity loss
+- Land-use change
+- Habitat loss
+- Human pressures
+- Ecosystem change
+
+Source type:
+Global scientific assessment.
+
+
+--------------------------------------------------
+
+SOURCE 4
+
+Organization:
+United Nations Environment Programme (UNEP)
+
+Topic:
+Environmental pressures and biodiversity.
+
+Use for:
+- Pollution
+- Habitat degradation
+- Ecosystem pressures
+- Environmental change
+
+Source type:
+International environmental assessment resources.
+
+
+--------------------------------------------------
+
+SOURCE 5
+
+Organization:
+Food and Agriculture Organization of the United Nations (FAO)
+
+Topic:
+Agroecology and biodiversity-friendly agricultural practices.
+
+Use for:
+- Crop diversification
+- Intercropping
+- Agroforestry
+- Habitat management
+- Sustainable agriculture
+
+Source type:
+International technical resources.
+
+
+--------------------------------------------------
+
+EVIDENCE POLICY
+
+The system should not invent numerical percentages.
+
+If a retrieved source does not provide a quantitative estimate, the chatbot should explain the expected direction of change rather than fabricate a percentage.
+
+Recommendations should consider multiple variables simultaneously.
