@@ -2,31 +2,41 @@ import os
 import glob
 import chromadb
 
-from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 
-load_dotenv()
+
+# ============================================================
+# PATH CONFIGURATION
+# ============================================================
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATA_DIR = os.path.join(
+    BASE_DIR,
+    "data"
+)
+
+CHROMA_DIR = os.path.join(
+    BASE_DIR,
+    "chroma_db"
+)
 
 
 # ============================================================
-# 1. EMBEDDING MODEL
+# EMBEDDING MODEL
 # ============================================================
-
-print("Loading embedding model...")
 
 embedding_model = SentenceTransformer(
     "all-MiniLM-L6-v2"
 )
 
-print("Embedding model loaded.")
-
 
 # ============================================================
-# 2. CHROMADB
+# CHROMADB
 # ============================================================
 
 client = chromadb.PersistentClient(
-    path="./chroma_db"
+    path=CHROMA_DIR
 )
 
 collection = client.get_or_create_collection(
@@ -35,7 +45,7 @@ collection = client.get_or_create_collection(
 
 
 # ============================================================
-# 3. LOAD DOCUMENTS
+# LOAD DOCUMENTS
 # ============================================================
 
 def load_documents():
@@ -44,17 +54,14 @@ def load_documents():
     ids = []
     metadatas = []
 
-    files = glob.glob("data/*.txt")
-
-    print(f"Found {len(files)} knowledge files.")
+    files = glob.glob(
+        os.path.join(
+            DATA_DIR,
+            "*.txt"
+        )
+    )
 
     for file_path in files:
-
-        filename = os.path.basename(file_path)
-
-        category = filename.replace(
-            ".txt", ""
-        )
 
         with open(
             file_path,
@@ -65,7 +72,7 @@ def load_documents():
             text = f.read()
 
         # ----------------------------------------------------
-        # Split into smaller chunks
+        # Chunk text
         # ----------------------------------------------------
 
         chunks = [
@@ -77,14 +84,25 @@ def load_documents():
             )
         ]
 
+        filename = os.path.basename(
+            file_path
+        )
+
+        category = os.path.splitext(
+            filename
+        )[0]
+
+        # ----------------------------------------------------
+        # Store chunks
+        # ----------------------------------------------------
+
         for index, chunk in enumerate(chunks):
 
-            # Ignore extremely small chunks
-            if len(chunk.strip()) < 50:
+            if not chunk.strip():
                 continue
 
             documents.append(
-                chunk.strip()
+                chunk
             )
 
             ids.append(
@@ -97,13 +115,8 @@ def load_documents():
 
                 "file": filename,
 
-                "chunk": index,
+                "type": "scientific_knowledge"
 
-                "type": (
-                    "intervention"
-                    if category == "interventions"
-                    else "scientific_knowledge"
-                )
             })
 
     return (
@@ -114,82 +127,117 @@ def load_documents():
 
 
 # ============================================================
-# 4. BUILD KNOWLEDGE BASE
+# BUILD KNOWLEDGE BASE
 # ============================================================
 
 def build_knowledge_base():
 
-    documents, ids, metadatas = load_documents()
+    documents, ids, metadatas = (
+        load_documents()
+    )
 
     if not documents:
 
         print(
-            "No documents found in data/ folder."
+            "No knowledge files found."
         )
 
         return
 
-    print(
-        f"Preparing {len(documents)} chunks..."
-    )
-
     # --------------------------------------------------------
-    # IMPORTANT:
-    # Delete old collection so new knowledge is indexed.
+    # Avoid duplicate insertion
     # --------------------------------------------------------
 
-    global collection
+    existing_ids = set()
 
     try:
 
-        client.delete_collection(
-            name="biodiversity_knowledge"
-        )
+        existing = collection.get()
+
+        if existing and existing.get("ids"):
+
+            existing_ids = set(
+                existing["ids"]
+            )
 
     except Exception:
 
         pass
 
-    collection = client.get_or_create_collection(
-        name="biodiversity_knowledge"
-    )
+    # --------------------------------------------------------
+    # Add only new documents
+    # --------------------------------------------------------
+
+    new_documents = []
+    new_ids = []
+    new_metadatas = []
+
+    for document, doc_id, metadata in zip(
+        documents,
+        ids,
+        metadatas
+    ):
+
+        if doc_id not in existing_ids:
+
+            new_documents.append(
+                document
+            )
+
+            new_ids.append(
+                doc_id
+            )
+
+            new_metadatas.append(
+                metadata
+            )
+
+    if not new_documents:
+
+        print(
+            f"Knowledge base already contains "
+            f"{collection.count()} chunks."
+        )
+
+        return
 
     # --------------------------------------------------------
     # Generate embeddings
     # --------------------------------------------------------
 
-    print(
-        "Generating embeddings..."
-    )
-
     embeddings = embedding_model.encode(
-        documents,
-        show_progress_bar=True
+        new_documents,
+        show_progress_bar=False
     ).tolist()
 
     # --------------------------------------------------------
-    # Add to ChromaDB
+    # Store in ChromaDB
     # --------------------------------------------------------
 
     collection.add(
 
-        documents=documents,
+        documents=new_documents,
 
         embeddings=embeddings,
 
-        ids=ids,
+        ids=new_ids,
 
-        metadatas=metadatas
+        metadatas=new_metadatas
+
     )
 
     print(
-        f"Knowledge base created with "
-        f"{len(documents)} chunks."
+        f"Added {len(new_documents)} new chunks."
+    )
+
+    print(
+        f"Total knowledge chunks: "
+        f"{collection.count()}"
     )
 
 
 # ============================================================
-# 5. RETRIEVE KNOWLEDGE
+# RETRIEVE KNOWLEDGE
 # ============================================================
 
 def retrieve_knowledge(
@@ -198,15 +246,27 @@ def retrieve_knowledge(
 ):
 
     # --------------------------------------------------------
-    # Convert query into embedding
+    # Make sure knowledge base exists
     # --------------------------------------------------------
 
-    query_embedding = embedding_model.encode(
-        [query]
-    ).tolist()
+    if collection.count() == 0:
+
+        build_knowledge_base()
 
     # --------------------------------------------------------
-    # Search ChromaDB
+    # Query embedding
+    # --------------------------------------------------------
+
+    query_embedding = (
+        embedding_model
+        .encode(
+            [query]
+        )
+        .tolist()
+    )
+
+    # --------------------------------------------------------
+    # Chroma search
     # --------------------------------------------------------
 
     results = collection.query(
@@ -214,15 +274,22 @@ def retrieve_knowledge(
         query_embeddings=query_embedding,
 
         n_results=n_results
+
     )
 
-    documents = results["documents"][0]
+    documents = (
+        results.get(
+            "documents",
+            [[]]
+        )[0]
+    )
 
-    metadatas = results["metadatas"][0]
-
-    # --------------------------------------------------------
-    # Return document + metadata
-    # --------------------------------------------------------
+    metadatas = (
+        results.get(
+            "metadatas",
+            [[]]
+        )[0]
+    )
 
     return list(
         zip(
@@ -230,52 +297,3 @@ def retrieve_knowledge(
             metadatas
         )
     )
-
-
-# ============================================================
-# 6. TEST RETRIEVAL
-# ============================================================
-
-if __name__ == "__main__":
-
-    print("\nBuilding biodiversity knowledge base...\n")
-
-    build_knowledge_base()
-
-    print("\nTesting retrieval...\n")
-
-    test_query = (
-        "How can biodiversity be improved "
-        "when soil organic carbon is low, "
-        "rainfall is low and land is under monoculture?"
-    )
-
-    results = retrieve_knowledge(
-        test_query,
-        n_results=5
-    )
-
-    print(
-        f"\nRetrieved {len(results)} results:\n"
-    )
-
-    for i, (document, metadata) in enumerate(
-        results,
-        start=1
-    ):
-
-        print(
-            f"\n{'=' * 60}"
-        )
-
-        print(
-            f"RESULT {i}"
-        )
-
-        print(
-            f"Metadata: {metadata}"
-        )
-
-        print(
-            f"\n{document[:1000]}"
-        )

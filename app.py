@@ -5,7 +5,10 @@ import json
 from dotenv import load_dotenv
 from google import genai
 
-from rag import retrieve_knowledge
+from rag import (
+    retrieve_knowledge,
+    build_knowledge_base
+)
 
 
 # ============================================================
@@ -14,15 +17,48 @@ from rag import retrieve_knowledge
 
 load_dotenv()
 
-API_KEY = os.getenv("GEMINI_API_KEY")
+# ============================================================
+# GEMINI API KEY
+# ============================================================
+
+API_KEY = None
+
+# Streamlit Cloud
+try:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    pass
+
+# Local development
+if not API_KEY:
+    API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not API_KEY:
-    st.error("GEMINI_API_KEY not found in .env file.")
+
+    st.error(
+        "GEMINI_API_KEY is not configured. "
+        "Add it to Streamlit Secrets or your local .env file."
+    )
+
     st.stop()
 
-client = genai.Client(api_key=API_KEY)
+client = genai.Client(
+    api_key=API_KEY
+)
+
+# ============================================================
+# INITIALIZE KNOWLEDGE BASE
+# ============================================================
+
+@st.cache_resource
+def initialize_knowledge_base():
+
+    build_knowledge_base()
+
+    return True
 
 
+initialize_knowledge_base()
 # ============================================================
 # PAGE CONFIG
 # ============================================================
