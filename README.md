@@ -24,7 +24,10 @@ BioIntel AI reads the science, reads your land, and connects the dots.
 [**Quick Start**](#-quick-start) · [**Architecture**](#%EF%B8%8F-system-architecture) · [**Features**](#-core-features) · [**Demo Query**](#-walkthrough-a-real-query) · [**Roadmap**](#-roadmap)
 
 </div>
+---
+
 **Live App:** https://huggingface.co/spaces/Usersak123/BioDiversify-AI
+
 ---
 
 ## 📖 Table of Contents
