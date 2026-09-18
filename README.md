@@ -20,11 +20,11 @@ BioIntel AI reads the science, reads your land, and connects the dots.
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](#-contributing)
 
 <br>
-live app: https://huggingface.co/spaces/Usersak123/BioDiversify-AI
+
 [**Quick Start**](#-quick-start) · [**Architecture**](#%EF%B8%8F-system-architecture) · [**Features**](#-core-features) · [**Demo Query**](#-walkthrough-a-real-query) · [**Roadmap**](#-roadmap)
 
 </div>
-
+live app: https://huggingface.co/spaces/Usersak123/BioDiversify-AI
 ---
 
 ## 📖 Table of Contents
